@@ -1,3 +1,4 @@
+const { put } = require('../../routes')
 const Employee = require('../models/employeeModel')
 const Photo = require('../models/photoModel')
 
@@ -25,6 +26,26 @@ module.exports = {
             if(!employee) return res.json('Employee not found')
 
             return res.json(employee)
+        } catch (error) {
+            console.error(error);
+        }
+    },
+
+    async showAll(req, res) {
+        try {
+            let results = await Employee.findAll()
+            let employees = results.rows
+
+            return res.json(employees)
+        } catch (error) {
+            console.error(error);
+        }
+    },
+
+    async put(req, res) {
+        try {
+            
+
         } catch (error) {
             console.error(error);
         }
