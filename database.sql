@@ -8,13 +8,14 @@ CREATE TABLE "employees" (
     "phone" text NOT NULL,
     "email" text NOT NULL,
   	"birth" timestamp,
-    "photo_id" int,
     "created_at" timestamp DEFAULT (now())
 );
 
 CREATE TABLE "photos" (
     "id" SERIAL PRIMARY KEY,
+    "employee_id" int,
     "path" text NOT NULL
 );
 
-ALTER TABLE "employees" ADD FOREIGN KEY ("photo_id") REFERENCES "photos" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "employees" ADD FOREIGN KEY ("photo_id") REFERENCES "photos" ("id");
+ALTER TABLE "photos" ADD FOREIGN KEY ("employee_id") REFERENCES "employees" ("id") ON DELETE CASCADE ON UPDATE CASCADE;

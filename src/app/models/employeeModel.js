@@ -1,7 +1,8 @@
 const db = require('../../config/db')
+const fs = require('fs')
 
 module.exports = {
-    create(data, photoId) {
+    create(data) {
         try {
             const query = `
             INSERT INTO employees (
@@ -10,9 +11,8 @@ module.exports = {
                 cpf,
                 phone,
                 email,
-                birth,
-                photo_id
-            ) VALUES ($1, $2, $3, $4, $5, $6, $7)
+                birth
+            ) VALUES ($1, $2, $3, $4, $5, $6)
             RETURNING ID
             `
 
@@ -22,8 +22,7 @@ module.exports = {
                 data.cpf,
                 data.phone,
                 data.email,
-                data.birth,
-                photo_id = photoId
+                data.birth
             ]
 
             return db.query(query, values)
@@ -38,11 +37,11 @@ module.exports = {
             const query = `
             UPDATE employees SET
                 name=($1),
-                rg($2),
-                cpf($3),
-                phone($4),
-                email($5),
-                photo_id($6)
+                rg=($2),
+                cpf=($3),
+                phone=($4),
+                email=($5),
+                birth=($6)
             WHERE id = $7
             `
 
@@ -52,7 +51,7 @@ module.exports = {
                 data.cpf,
                 data.phone,
                 data.email,
-                data.photo,
+                data.birth,
                 data.id
             ]
 
@@ -63,8 +62,13 @@ module.exports = {
         }
     },
 
-    delete(id) {
+    async delete(id) {
         try {
+            /* let photoPath = await db.query(`SELECT * FROM photos WHERE employee_id = $1`, [id])
+            let results = photoPath.rows[0]
+            console.log(photoPath) */
+            //fs.unlinkSync(photoPath)
+
             return db.query(`DELETE FROM employees WHERE id = $1`, [id])
         } catch (error) {
             console.error(error)
@@ -74,8 +78,8 @@ module.exports = {
     findOne (id) {
         try {
             return db.query(`
-                SELECT * FROM employees 
-                LEFT JOIN photos on employees.id = photos.id
+                SELECT * FROM photos
+                LEFT JOIN employees on (photos.employee_id = employees.id)
                 WHERE employees.id = $1
             `, [id])
             
@@ -87,8 +91,8 @@ module.exports = {
     findAll() {
         try {
             return db.query(`
-                SELECT * FROM employees 
-                LEFT JOIN photos on employees.id = photos.id
+            SELECT * FROM photos
+            LEFT JOIN employees on (photos.employee_id = employees.id)
             `)
         } catch (error) {
             console.error(error)
