@@ -1,5 +1,6 @@
 const Employee = require('../models/employeeModel')
 const Photo = require('../models/photoModel')
+const employee_photo = require('../models/employee_photoModel')
 const fs = require('fs')
 
 
@@ -10,9 +11,12 @@ module.exports = {
             let employee = await Employee.create(req.body)
             let employeeId = employee.rows[0].id
 
-            let photo = await Photo.create(req.file.path, employeeId)
+            let photo = await Photo.create(req.file.path)
+            let photoId = photo.rows[0].id
+
+            await employee_photo.create(employeeId, photoId)
             
-            return res.json(employee)
+            return res.json("employee registered")
         } catch (error) {
             console.error(error);
         }
@@ -59,6 +63,7 @@ module.exports = {
             let employee = results.rows[0]
             
             if(!employee) return res.json('Employee not found')
+            //console.log(employee)
             
             return res.json(employee)
         } catch (error) {
