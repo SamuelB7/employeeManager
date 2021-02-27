@@ -1,7 +1,7 @@
 {%extends 'layout.njk'%}
 
 {%block content%}
-<table class="table mt-5">
+<table class="table table-bordered table-sm mt-5">
     <thead>
         <tr>
             <th scope="col">NOME</th>
@@ -16,7 +16,7 @@
             <td>{{employee.name}}</td>
             <td>{{employee.phone}}</td>
             <td>{{employee.email}}</td>
-            <td><a href="#"></a>VER DETALHES</td>
+            <td><a href="/employee/{{employee.id}}">VER DETALHES</a></td>
         </tr>
         {%endfor%}
     </tbody>

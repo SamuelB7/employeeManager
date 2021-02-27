@@ -73,9 +73,12 @@ module.exports = {
             let employee = results.rows[0]
             
             if(!employee) return res.json('Employee not found')
-            //console.log(employee)
+            let photoPath = `${req.protocol}://${req.headers.host}${employee.path.replace("public", "")}`
             
-            return res.json(employee)
+            employee.birth = date(employee.birth).format
+            employee.created_at = date(employee.created_at).format
+            //return res.json(employee)
+            return res.render('show', {employee, photoPath})
         } catch (error) {
             console.error(error);
         }
