@@ -23,7 +23,13 @@ module.exports = {
 
     find(id) {
         try {
-            return db.query(`SELECT * FROM photos WHERE employee_id =$1`, [id])
+            return db.query(`
+                SELECT employees.id as employeeId, photos.id as photoId, photos.path
+                FROM employees, photos, employee_photos
+                WHERE employees.id = employee_photos.employee_id
+                AND photos.id = employee_photos.photo_id
+                AND employees.id = $1
+            `, [id])
         } catch (error) {
             console.error(error);
         }

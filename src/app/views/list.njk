@@ -1,0 +1,24 @@
+{%extends 'layout.njk'%}
+
+{%block content%}
+<table class="table mt-5">
+    <thead>
+        <tr>
+            <th scope="col">NOME</th>
+            <th scope="col">TELEFONE</th>
+            <th scope="col">EMAIL</th>
+            <th scope="col">DETALHES</th>
+        </tr>
+    </thead>
+    <tbody>
+        {%for employee in employees%}
+        <tr>
+            <td>{{employee.name}}</td>
+            <td>{{employee.phone}}</td>
+            <td>{{employee.email}}</td>
+            <td><a href="#"></a>VER DETALHES</td>
+        </tr>
+        {%endfor%}
+    </tbody>
+</table>
+{%endblock content%}

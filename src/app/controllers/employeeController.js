@@ -2,9 +2,18 @@ const Employee = require('../models/employeeModel')
 const Photo = require('../models/photoModel')
 const employee_photo = require('../models/employee_photoModel')
 const fs = require('fs')
+const {date} = require('../../../utils')
 
 
 module.exports = {
+    async home (req, res) {
+        try {
+            await res.render('home')
+        } catch (error) {
+            console.error(error);
+        }
+    },
+
     async post(req, res) {
         try {
             
@@ -33,11 +42,12 @@ module.exports = {
                 let oldPath = oldPhoto.rows[0].path
                 fs.unlinkSync(oldPath)
 
-                let photoId = oldPhoto.rows[0].id
-                let photo =  await Photo.upadate(req.file.path, photoId)
+                let photo_id = oldPhoto.rows[0].photoid
+                //console.log(oldPhoto.rows)
+                let photo =  await Photo.upadate(req.file.path, photo_id)
             }
 
-            return res.json(employee)
+            return res.json('employee updated')
             
 
         } catch (error) {
@@ -76,7 +86,8 @@ module.exports = {
             let results = await Employee.findAll()
             let employees = results.rows
 
-            return res.json(employees)
+            //return res.json(employees)
+            return res.render('list', {employees})
         } catch (error) {
             console.error(error);
         }
