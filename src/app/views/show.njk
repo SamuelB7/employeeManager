@@ -28,4 +28,27 @@
         </div>
     </div>
 </div>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <button type="button" class="btn btn-dark"><a class="text-decoration-none text-light" href="/employee/{{employee.id}}/edit">Editar Dados</a></button>
+        </div>
+        <div class="col">
+            <form id="form-delete" action="/employee?_method=DELETE" method="POST">
+                <input type="hidden" name="id" value={{employee.id}}>
+                <input type="hidden" name="path" value={{employee.path}}>
+                <button type="submit" class="btn btn-danger">Deletar</button>
+            </form>
+        </div>
+    </div>    
+</div>
+<script>
+    const formDelete = document.querySelector("#form-delete")
+    formDelete.addEventListener("submit", function(event) {
+        const confirmation = confirm("Deseja Deletar?")
+            if(!confirmation) {
+                event.preventDefault()
+            }
+    })
+</script>
 {%endblock content%}

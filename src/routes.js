@@ -5,6 +5,7 @@ const multer = require('./app/middlewares/multer')
 const employee = require('./app/controllers/employeeController')
 
 routes.get('/', employee.home)
+routes.get('/employee/create', employee.create)
 routes.get('/employee/showAll', employee.showAll)
 routes.get('/employee/:id', employee.show)
 

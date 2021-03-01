@@ -52,7 +52,13 @@ module.exports = {
         } catch (error) {
             console.error(error);
         }
-    }
+    },
 
-    
+    delete(id) {
+        try {
+            return db.query(`DELETE FROM photos WHERE id = $1`, [id])
+        } catch (error) {
+            console.error(error);
+        }
+    }
 }

@@ -6,9 +6,17 @@ const {date} = require('../../../utils')
 
 
 module.exports = {
-    async home (req, res) {
+    home (req, res) {
         try {
-            await res.render('home')
+            res.render('home')
+        } catch (error) {
+            console.error(error);
+        }
+    },
+
+    create(req, res) {
+        try {
+            res.render('create')
         } catch (error) {
             console.error(error);
         }
@@ -57,9 +65,11 @@ module.exports = {
 
     async delete(req, res) {
         try {
-            
-            //console.log(req.body)
             await Employee.delete(req.body.id)
+
+            let path = req.body.path
+            fs.unlinkSync(path)
+            await Photo.delete(req.body.id)
 
             return res.json('Employee Deleted!')
         } catch (error) {
