@@ -22,6 +22,22 @@ module.exports = {
         }
     },
 
+    async edit(req, res) {
+        try {
+            let results = await Employee.findOne(req.params.id)
+            let employee = results.rows[0]
+            
+            if(!employee) return res.json('Employee not found')
+            let photoPath = `${req.protocol}://${req.headers.host}${employee.path.replace("public", "")}`
+            
+            employee.birth = date(employee.birth).iso
+            //return res.json(employee)
+            return res.render('edit', {employee, photoPath})
+        } catch (error) {
+            console.error(error);
+        }
+    },
+
     async post(req, res) {
         try {
             
@@ -33,7 +49,7 @@ module.exports = {
 
             await employee_photo.create(employeeId, photoId)
             
-            return res.json("employee registered")
+            return res.redirect(`/employee/${employeeId}`)
         } catch (error) {
             console.error(error);
         }
@@ -55,7 +71,7 @@ module.exports = {
                 let photo =  await Photo.upadate(req.file.path, photo_id)
             }
 
-            return res.json('employee updated')
+            return res.redirect(`/employee/${req.body.id}`)
             
 
         } catch (error) {
@@ -71,7 +87,7 @@ module.exports = {
             fs.unlinkSync(path)
             await Photo.delete(req.body.id)
 
-            return res.json('Employee Deleted!')
+            return res.redirect('/employee/showAll')
         } catch (error) {
             console.error(error);
         }

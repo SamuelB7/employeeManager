@@ -4,7 +4,8 @@
 <br>
 <br>
 <h1>Registrar novo Funcionário</h1>
-<form action="/employee" method="POST" enctype="multipart/form-data">
+<form action="/employee?_method=PUT" method="POST" enctype="multipart/form-data">
+    <input type="hidden" name="id" value={{employee.id}}>
     <div class="row">
         <div class="col">
             <div class="input-group mb-3">
@@ -17,33 +18,33 @@
             <br>    
             <br>
             <div class="row">
-                <img src="" style="max-width: 250px; max-height: 350px" class="img-fluid mx-auto" id="preview">
+                <img src="{{photoPath}}" style="max-width: 250px; max-height: 350px" class="img-fluid mx-auto" id="preview">
             </div>
         </div>
         <div class="col">
             <label for="name">Nome completo</label>
-            <input style="max-width: 400px" class="form-control" type="text" name="name" id="name">
+            <input style="max-width: 400px" class="form-control" type="text" name="name" id="name" value="{{employee.name}}">
 
             <label for="rg">RG</label>
-            <input style="max-width: 400px" class="form-control" type="text" name="rg" id="rg">
+            <input style="max-width: 400px" class="form-control" type="text" name="rg" id="rg" value="{{employee.rg}}">
 
             <label for="name">CPF</label>
-            <input style="max-width: 400px" class="form-control" type="text" name="cpf" id="cpf">
+            <input style="max-width: 400px" class="form-control" type="text" name="cpf" id="cpf" value="{{employee.cpf}}">
 
             <label for="name">Telefone</label>
-            <input style="max-width: 400px" class="form-control" type="text" name="phone" id="phone">
+            <input style="max-width: 400px" class="form-control" type="text" name="phone" id="phone" value="{{employee.phone}}">
 
             <label for="name">Email</label>
-            <input style="max-width: 400px" class="form-control" type="email" name="email" id="email">
+            <input style="max-width: 400px" class="form-control" type="email" name="email" id="email" value="{{employee.email}}">
 
             <label for="name">Data de nascimento</label>
-            <input style="max-width: 400px" class="form-control" type="date" name="birth" id="birth">
+            <input style="max-width: 400px" class="form-control" type="date" name="birth" id="birth" value="{{employee.birth}}">
         </div>
     </div>
     <br>
     <br>
     <div class="container text-center">
-        <button type="submit" class="btn btn-primary btn-lg btn-block" style="width: 200px;">Registrar</button>
+        <button type="submit" class="btn btn-primary btn-lg btn-block" style="width: 200px;">Salvar</button>
     </div>
 </form>
 

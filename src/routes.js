@@ -8,6 +8,7 @@ routes.get('/', employee.home)
 routes.get('/employee/create', employee.create)
 routes.get('/employee/showAll', employee.showAll)
 routes.get('/employee/:id', employee.show)
+routes.get('/employee/:id/edit', employee.edit)
 
 routes.post('/employee', multer.single("photos"), employee.post)
 routes.put('/employee', multer.single("photos"), employee.put)
