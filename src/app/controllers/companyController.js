@@ -11,6 +11,13 @@ module.exports = {
 
     async post(req, res) {
         try {
+            const keys = Object.keys(req.body)
+            for(key of keys) {
+                if (req.body[key] =='') {
+                    return res.send('Por favor, preencha todos os campos!')
+                }
+            }
+
             await Company.create(req.body)
             
             res.json('company created!')
@@ -21,6 +28,13 @@ module.exports = {
 
     async put(req, res) {
         try {
+            const keys = Object.keys(req.body)
+            for(key of keys) {
+                if (req.body[key] =='') {
+                    return res.send('Por favor, preencha todos os campos!')
+                }
+            }
+
             await Company.update(req.body)
             
             res.json('company updated!')

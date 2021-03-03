@@ -9,7 +9,7 @@
         <div class="col">
             <div class="input-group mb-3">
                 <div class="custom-file">
-                    <input style="border: 1px solid rgb(134, 151, 169); border-radius: 3px" type="file" class="custom-file-input" id="photos" name="photos" onchange="imagePreview()">
+                    <input style="border: 1px solid rgb(134, 151, 169); border-radius: 3px" type="file" class="custom-file-input" id="photos" name="photos" onchange="imagePreview()" required>
                     <label class="custom-file-label" for="photos">Foto do funcionário</label>
                 </div>
             </div>
@@ -22,22 +22,22 @@
         </div>
         <div class="col">
             <label for="name">Nome completo</label>
-            <input style="max-width: 400px" class="form-control" type="text" name="name" id="name">
+            <input style="max-width: 400px" class="form-control" type="text" name="name" id="name" required>
 
             <label for="rg">RG</label>
-            <input style="max-width: 400px" class="form-control" type="text" name="rg" id="rg">
+            <input style="max-width: 400px" class="form-control" type="text" name="rg" id="rg" required>
 
             <label for="name">CPF</label>
-            <input style="max-width: 400px" class="form-control" type="text" name="cpf" id="cpf">
+            <input style="max-width: 400px" class="form-control" type="text" name="cpf" id="cpf" required>
 
             <label for="name">Telefone</label>
-            <input style="max-width: 400px" class="form-control" type="text" name="phone" id="phone">
+            <input style="max-width: 400px" class="form-control" type="text" name="phone" id="phone" required>
 
             <label for="name">Email</label>
-            <input style="max-width: 400px" class="form-control" type="email" name="email" id="email">
+            <input style="max-width: 400px" class="form-control" type="email" name="email" id="email" required>
 
             <label for="name">Data de nascimento</label>
-            <input style="max-width: 400px" class="form-control" type="date" name="birth" id="birth">
+            <input style="max-width: 400px" class="form-control" type="date" name="birth" id="birth" required>
         </div>
     </div>
     <br>

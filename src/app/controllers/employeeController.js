@@ -40,7 +40,13 @@ module.exports = {
 
     async post(req, res) {
         try {
-            
+            const keys = Object.keys(req.body) 
+            for(key of keys) {
+                if (req.body[key] =='') {
+                    return res.send('Por favor, preencha todos os campos!')
+                }
+            }
+
             let employee = await Employee.create(req.body)
             let employeeId = employee.rows[0].id
 
@@ -57,6 +63,12 @@ module.exports = {
 
     async put(req, res) {
         try {
+            const keys = Object.keys(req.body)
+            for(key of keys) {
+                if (req.body[key] =='') {
+                    return res.send('Por favor, preencha todos os campos!')
+                }
+            }
 
             let employee = await Employee.update(req.body)   
 
