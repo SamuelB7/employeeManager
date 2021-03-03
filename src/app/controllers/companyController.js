@@ -18,7 +18,10 @@ module.exports = {
                 }
             }
 
-            await Company.create(req.body)
+            let company = await Company.create(req.body)
+            let companyId = company.rows[0].id
+            
+            req.session.companyId = companyId
             
             res.json('company created!')
         } catch (error) {

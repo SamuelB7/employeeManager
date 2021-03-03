@@ -16,8 +16,8 @@ routes.post('/employee', multer.single("photos"), employee.post)
 routes.put('/employee', multer.single("photos"), employee.put)
 routes.delete('/employee', employee.delete)
 
-// //Company(user) routes
-// //login
+//Company(user) routes
+//login
 // routes.get('/company/login', sessionController.loginForm)
 // routes.post('/company/login', sessionController.login)
 // routes.post('/company/logout', sessionController.logOut)
@@ -28,7 +28,7 @@ routes.delete('/employee', employee.delete)
 // routes.post('/company/forgot-password', sessionController.forgot)
 // routes.post('/company/password-reset', sessionController.reset)
 
-// //company register/ companyController
+//company register/ companyController
 routes.get('/company/register', company.registerForm)
 // routes.get('/company', companyController.show)
 // routes.get('/company/edit', companyController.editForm)
