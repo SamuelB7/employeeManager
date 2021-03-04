@@ -29,7 +29,7 @@ module.exports = {
         }
     },
 
-    update(data) {
+    async update(data) {
         try {
             const query = `
             UPDATE company SET
@@ -40,11 +40,13 @@ module.exports = {
             WHERE id = $5    
             `
 
+            const passwordHash = await hash(data.password, 7)
+
             const values = [
                 data.name,
-                data.cnpj,
+                data.cnpj.replace(/\D/g,""),
                 data.email,
-                data.password,
+                passwordHash,
                 data.id
             ]
 
@@ -60,5 +62,29 @@ module.exports = {
         } catch (error) {
             console.error(error);
         }
+    },
+
+    find(id) {
+        try {
+            return db.query(`SELECT * FROM company WHERE id = $1`, [id])
+        } catch (error) {
+            console.error(error);
+        }
+    },
+
+    async verifyIfExists(filters){
+        let query = `SELECT * FROM company`
+
+        Object.keys(filters).map(key => {
+            query = `${query}
+            ${key}
+            `
+            Object.keys(filters[key]).map(field => {
+                query = `${query}${field} = '${filters[key][field]}'`
+            })
+        })
+
+        const results = await db.query(query)
+        return results.rows[0]
     }
 }

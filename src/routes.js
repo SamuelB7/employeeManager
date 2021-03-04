@@ -31,7 +31,7 @@ routes.delete('/employee', employee.delete)
 //company register/ companyController
 routes.get('/company/register', company.registerForm)
 // routes.get('/company', companyController.show)
-// routes.get('/company/edit', companyController.editForm)
+routes.get('/company/:id/edit', company.editForm)
 
 routes.post('/company/register', company.post)
 routes.put('/company/register', company.put)
