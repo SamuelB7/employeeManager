@@ -13,6 +13,20 @@
                         <li class="nav-item">
                             <a class="nav-link active" href="/employee/showAll">Lista de Funcionários</a>
                         </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Minha Conta
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#">Configurações</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <form class="dropdown-item" action="/company/logout" method="POST">
+                                        <button type="submit" class="btn btn-light">Log Out</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
             </div>

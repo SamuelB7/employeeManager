@@ -20,6 +20,13 @@ module.exports = {
         }
     },
 
+    async show (req, res) {
+        let results = await Company.find(req.params.id)
+        let company = results.rows[0]
+        
+        res.render('company/companyShow', {company})
+    },
+
     async post(req, res) {
         try {
             //Verifica se todos os campos estão preenchidos

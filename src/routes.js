@@ -4,6 +4,7 @@ const multer = require('./app/middlewares/multer')
 
 const employee = require('./app/controllers/employeeController')
 const company = require('./app/controllers/companyController')
+const session = require('./app/controllers/sessionController')
 
 //Employee routes
 routes.get('/', employee.home)
@@ -18,9 +19,9 @@ routes.delete('/employee', employee.delete)
 
 //Company(user) routes
 //login
-// routes.get('/company/login', sessionController.loginForm)
-// routes.post('/company/login', sessionController.login)
-// routes.post('/company/logout', sessionController.logOut)
+routes.get('/company/login', session.loginForm)
+routes.post('/company/login', session.login)
+routes.post('/company/logout', session.logout)
 
 // //reset/forgot password
 // routes.get('/company/forgot-password', sessionController.forgotForm)
@@ -30,11 +31,11 @@ routes.delete('/employee', employee.delete)
 
 //company register/ companyController
 routes.get('/company/register', company.registerForm)
-// routes.get('/company', companyController.show)
+routes.get('/company/:id', company.show)
 routes.get('/company/:id/edit', company.editForm)
 
 routes.post('/company/register', company.post)
 routes.put('/company/register', company.put)
-routes.delete('/company/register', company.delete)
+routes.delete('/company', company.delete)
 
 module.exports = routes
