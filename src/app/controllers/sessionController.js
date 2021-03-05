@@ -10,7 +10,6 @@ module.exports = {
                 error: 'Usuário não encontrado!'
             })
         }
-        console.log(user)
         //verificar se senha está correta
         const verifyPassword = await compare(req.body.password,user.password)
         if(!verifyPassword) {

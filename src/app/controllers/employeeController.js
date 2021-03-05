@@ -47,7 +47,9 @@ module.exports = {
                 }
             }
 
-            let employee = await Employee.create(req.body)
+            let companyId = req.session.companyId
+            //console.log(companyId)
+            let employee = await Employee.create(req.body, companyId)
             let employeeId = employee.rows[0].id
 
             let photo = await Photo.create(req.file.path)
@@ -69,8 +71,8 @@ module.exports = {
                     return res.send('Por favor, preencha todos os campos!')
                 }
             }
-
-            let employee = await Employee.update(req.body)   
+            let companyId = req.session.companyId
+            let employee = await Employee.update(req.body, companyId)   
 
             if (req.file) {
                 
@@ -124,7 +126,9 @@ module.exports = {
 
     async showAll(req, res) {
         try {
-            let results = await Employee.findAll()
+            let companyId = req.session.companyId
+
+            let results = await Employee.findAll(companyId)
             let employees = results.rows
 
             //return res.json(employees)

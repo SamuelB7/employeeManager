@@ -57,7 +57,7 @@ module.exports = {
             
             req.session.companyId = companyId
             
-            res.json('company created!')
+            res.redirect(`/company/${companyId}`)
             
         } catch (error) {
             console.error(error);
@@ -83,8 +83,9 @@ module.exports = {
 
     async delete(req, res) {
         try {
+            req.session.destroy()
             await Company.delete(req.body.id)
-            res.json('company deleted!')
+            res.redirect('/')
         } catch (error) {
             console.error(error);
         }

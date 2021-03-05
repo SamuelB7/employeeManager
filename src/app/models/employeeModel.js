@@ -2,7 +2,7 @@ const db = require('../../config/db')
 const fs = require('fs')
 
 module.exports = {
-    create(data) {
+    create(data, companyId) {
         try {
             const query = `
             INSERT INTO employees (
@@ -11,8 +11,9 @@ module.exports = {
                 cpf,
                 phone,
                 email,
-                birth
-            ) VALUES ($1, $2, $3, $4, $5, $6)
+                birth,
+                company_id
+            ) VALUES ($1, $2, $3, $4, $5, $6, $7)
             RETURNING ID
             `
 
@@ -22,7 +23,8 @@ module.exports = {
                 data.cpf,
                 data.phone,
                 data.email,
-                data.birth
+                data.birth,
+                company_id = companyId
             ]
 
             return db.query(query, values)
@@ -32,7 +34,7 @@ module.exports = {
         }
     },
 
-    update(data) {
+    update(data, companyId) {
         try {
             const query = `
             UPDATE employees SET
@@ -41,8 +43,9 @@ module.exports = {
                 cpf=($3),
                 phone=($4),
                 email=($5),
-                birth=($6)
-            WHERE id = $7
+                birth=($6),
+                company_id=($7)
+            WHERE id = $8
             `
 
             const values = [
@@ -52,6 +55,7 @@ module.exports = {
                 data.phone,
                 data.email,
                 data.birth,
+                company_id = companyId,
                 data.id
             ]
 
@@ -90,14 +94,15 @@ module.exports = {
         }
     },
 
-    findAll() {
+    findAll(companyId) {
         try {
             return db.query(`
                 SELECT employees.*, photos.path
                 FROM employees, photos, employee_photos
                 WHERE employees.id = employee_photos.employee_id
                 AND photos.id = employee_photos.photo_id
-            `)
+                AND employees.company_id = $1
+            `, [companyId])
         } catch (error) {
             console.error(error)
         }
