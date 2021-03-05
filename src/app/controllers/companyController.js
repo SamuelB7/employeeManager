@@ -75,7 +75,7 @@ module.exports = {
 
             await Company.update(req.body)
             
-            res.json('company updated!')
+            res.redirect(`/company/${req.body.id}`)
         } catch (error) {
             console.error(error);
         }
