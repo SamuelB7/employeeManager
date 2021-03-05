@@ -1,6 +1,5 @@
 const Employee = require('../models/employeeModel')
 const Photo = require('../models/photoModel')
-const employee_photo = require('../models/employee_photoModel')
 const fs = require('fs')
 const {date} = require('../../../utils')
 
@@ -52,11 +51,8 @@ module.exports = {
             let employee = await Employee.create(req.body, companyId)
             let employeeId = employee.rows[0].id
 
-            let photo = await Photo.create(req.file.path)
-            let photoId = photo.rows[0].id
+            let photo = await Photo.create(req.file.path, employeeId)
 
-            await employee_photo.create(employeeId, photoId)
-            
             return res.redirect(`/employee/${employeeId}`)
         } catch (error) {
             console.error(error);
@@ -76,7 +72,7 @@ module.exports = {
 
             if (req.file) {
                 
-                let oldPhoto = await Photo.find(req.body.id)
+                let oldPhoto = await Employee.findOne(req.body.id)
                 let oldPath = oldPhoto.rows[0].path
                 fs.unlinkSync(oldPath)
 
@@ -95,11 +91,9 @@ module.exports = {
 
     async delete(req, res) {
         try {
-            await Employee.delete(req.body.id)
-
             let path = req.body.path
             fs.unlinkSync(path)
-            await Photo.delete(req.body.id)
+            await Employee.delete(req.body.id)
 
             return res.redirect('/employee/showAll')
         } catch (error) {

@@ -31,4 +31,8 @@ module.exports = {
     loginForm(req, res) {
         res.render('company/login')
     },
+
+    forgotForm(req, res) {
+        return res.render('company/retrivePassword')
+    }
 }

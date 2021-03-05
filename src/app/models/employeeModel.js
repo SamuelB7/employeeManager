@@ -82,10 +82,9 @@ module.exports = {
     findOne (id) {
         try {
             return db.query(`
-                SELECT employees.*, photos.path
-                FROM employees, photos, employee_photos
-                WHERE employees.id = employee_photos.employee_id
-                AND photos.id = employee_photos.photo_id
+                SELECT employees.*, photos.path, photos.id as photoId
+                FROM employees, photos
+                WHERE employees.id = photos.employee_id
                 AND employees.id = $1
             `, [id])
             
@@ -98,9 +97,8 @@ module.exports = {
         try {
             return db.query(`
                 SELECT employees.*, photos.path
-                FROM employees, photos, employee_photos
-                WHERE employees.id = employee_photos.employee_id
-                AND photos.id = employee_photos.photo_id
+                FROM employees, photos
+                WHERE employees.id = photos.employee_id
                 AND employees.company_id = $1
             `, [companyId])
         } catch (error) {
