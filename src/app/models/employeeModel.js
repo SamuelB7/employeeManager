@@ -20,7 +20,7 @@ module.exports = {
             const values = [
                 data.name,
                 data.rg,
-                data.cpf,
+                data.cpf.replace(/\D/g, ""),
                 data.phone,
                 data.email,
                 data.birth,
@@ -66,13 +66,8 @@ module.exports = {
         }
     },
 
-    async delete(id) {
+    delete(id) {
         try {
-            /* let photoPath = await db.query(`SELECT * FROM photos WHERE employee_id = $1`, [id])
-            let results = photoPath.rows[0]
-            console.log(photoPath) */
-            //fs.unlinkSync(photoPath)
-
             return db.query(`DELETE FROM employees WHERE id = $1`, [id])
         } catch (error) {
             console.error(error)

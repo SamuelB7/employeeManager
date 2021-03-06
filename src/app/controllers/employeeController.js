@@ -1,13 +1,12 @@
 const Employee = require('../models/employeeModel')
 const Photo = require('../models/photoModel')
 const fs = require('fs')
-const {date} = require('../../lib/utils')
-
+const {date, formatCpfCnpj} = require('../../lib/utils')
 
 module.exports = {
     home (req, res) {
         try {
-            res.render('home')
+            return res.render('home')
         } catch (error) {
             console.error(error);
         }
@@ -15,7 +14,7 @@ module.exports = {
 
     create(req, res) {
         try {
-            res.render('create')
+            return res.render('create')
         } catch (error) {
             console.error(error);
         }
@@ -30,7 +29,7 @@ module.exports = {
             let photoPath = `${req.protocol}://${req.headers.host}${employee.path.replace("public", "")}`
             
             employee.birth = date(employee.birth).iso
-            //return res.json(employee)
+            
             return res.render('edit', {employee, photoPath})
         } catch (error) {
             console.error(error);
@@ -77,8 +76,8 @@ module.exports = {
                 fs.unlinkSync(oldPath)
 
                 let photo_id = oldPhoto.rows[0].photoid
-                //console.log(oldPhoto.rows)
-                let photo =  await Photo.upadate(req.file.path, photo_id)
+                
+                await Photo.upadate(req.file.path, photo_id)
             }
 
             return res.redirect(`/employee/${req.body.id}`)
@@ -105,13 +104,14 @@ module.exports = {
         try {
             let results = await Employee.findOne(req.params.id)
             let employee = results.rows[0]
+            employee.cpf = formatCpfCnpj(employee.cpf)
             
             if(!employee) return res.json('Employee not found')
             let photoPath = `${req.protocol}://${req.headers.host}${employee.path.replace("public", "")}`
             
             employee.birth = date(employee.birth).format
             employee.created_at = date(employee.created_at).format
-            //return res.json(employee)
+            
             return res.render('show', {employee, photoPath})
         } catch (error) {
             console.error(error);
@@ -125,7 +125,6 @@ module.exports = {
             let results = await Employee.findAll(companyId)
             let employees = results.rows
 
-            //return res.json(employees)
             return res.render('list', {employees})
         } catch (error) {
             console.error(error);

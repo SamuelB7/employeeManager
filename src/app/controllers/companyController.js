@@ -1,9 +1,9 @@
 const Company = require('../models/companyModel');
-
+const {formatCpfCnpj} = require('../../lib/utils')
 module.exports = {
     registerForm(req, res) {
         try {
-            res.render('company/companyCreate')
+            return res.render('company/companyCreate')
         } catch (error) {
             console.error(error);
         }
@@ -14,7 +14,7 @@ module.exports = {
             let results = await Company.find(req.params.id)
             let company = results.rows[0]
             //console.log(req.params.id)
-            res.render('company/companyEdit', {company})
+            return res.render('company/companyEdit', {company})
         } catch (error) {
             console.error(error);
         }
@@ -23,8 +23,9 @@ module.exports = {
     async show (req, res) {
         let results = await Company.find(req.params.id)
         let company = results.rows[0]
+        company.cnpj = formatCpfCnpj(company.cnpj)
         
-        res.render('company/companyShow', {company})
+        return res.render('company/companyShow', {company})
     },
 
     async post(req, res) {
@@ -33,7 +34,9 @@ module.exports = {
             const keys = Object.keys(req.body)
             for(key of keys) {
                 if (req.body[key] =='') {
-                    return res.send('Por favor, preencha todos os campos!')
+                    return res.render('company/companyCreate', {
+                        error: 'Preencha todos os campos!'
+                    })
                 }
             }
 
@@ -57,7 +60,7 @@ module.exports = {
             
             req.session.companyId = companyId
             
-            res.redirect(`/company/${companyId}`)
+            return res.redirect(`/company/${companyId}`)
             
         } catch (error) {
             console.error(error);
@@ -75,7 +78,7 @@ module.exports = {
 
             await Company.update(req.body)
             
-            res.redirect(`/company/${req.body.id}`)
+            return res.redirect(`/company/${req.body.id}`)
         } catch (error) {
             console.error(error);
         }
@@ -85,7 +88,7 @@ module.exports = {
         try {
             req.session.destroy()
             await Company.delete(req.body.id)
-            res.redirect('/')
+            return res.redirect('/')
         } catch (error) {
             console.error(error);
         }
