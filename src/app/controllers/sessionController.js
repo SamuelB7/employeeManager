@@ -84,7 +84,13 @@ module.exports = {
 
     async resetPassword(req, res) {
         try {
-            const {email, password, passwordRepeat, token} = req.body
+            const {email, password, passwordRepeat} = req.body
+            
+            //Lógica para pegar o token
+            let urlStr = req.headers.referer
+            let url = new URL(urlStr)
+            let token = new URLSearchParams(url.search).get('token')
+            //console.log(token)
             
             let user = await session.verifyEmail(email)
             
@@ -97,14 +103,17 @@ module.exports = {
                 token,
                 error: 'As senha não confere!'
             }) 
-
+            
+            
             if(token != user.reset_token) return res.render('company/resetPassword', {
                 error: 'Token inválido! Solicite uma nova recuperação de senha'
             })
+            
 
             let now = new Date()
             now = now.setHours(now.getHours())
             if(now > user.reset_token_expires) return res.render('company/resetPassword', {
+                token,
                 error: 'Token expirado! Solicite uma nova recuperação de senha'
             })
 

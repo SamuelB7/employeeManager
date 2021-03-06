@@ -80,7 +80,7 @@ module.exports = {
         try {
             const query = `
             UPDATE company SET
-                password=($1),
+                password=($1)
             WHERE id = $2    
             `
             const passwordHash = await hash(newPassword, 7)
