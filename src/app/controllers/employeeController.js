@@ -1,7 +1,7 @@
 const Employee = require('../models/employeeModel')
 const Photo = require('../models/photoModel')
 const fs = require('fs')
-const {date} = require('../../../utils')
+const {date} = require('../../lib/utils')
 
 
 module.exports = {

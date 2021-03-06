@@ -25,9 +25,9 @@ routes.post('/company/logout', session.logout)
 
 //reset/forgot password
 routes.get('/company/forgot-password', session.forgotForm)
-// routes.get('/company/password-reset', session.resetForm)
+routes.get('/company/password-reset', session.resetPasswordForm)
 routes.post('/company/forgot-password', session.retrivePassword)
-// routes.post('/company/password-reset', session.reset)
+routes.post('/company/password-reset', session.resetPassword)
 
 //company routes(users)
 routes.get('/company/register', company.registerForm)

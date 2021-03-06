@@ -56,6 +56,47 @@ module.exports = {
         }
     },
 
+    resetToken(token, tokenExpires, id){
+        try {
+            const query = `
+            UPDATE company SET
+                reset_token=($1),
+                reset_token_expires=($2)
+            WHERE id = $3    
+            `
+            const values = [
+                reset_token = token,
+                reset_token_expires = tokenExpires,
+                id
+            ]
+
+            return db.query(query, values)
+        } catch (error) {
+            console.error(error);
+        }
+    },
+
+    async updatePassword(newPassword, id) {
+        try {
+            const query = `
+            UPDATE company SET
+                password=($1),
+            WHERE id = $2    
+            `
+            const passwordHash = await hash(newPassword, 7)
+
+            const values = [
+                passwordHash,
+                id
+            ]
+
+            return db.query(query, values)
+
+        } catch (error) {
+            console.error(error);
+        }
+    },
+
     delete(id) {
         try {
             return db.query(`DELETE FROM company WHERE id = $1`, [id])
