@@ -14,12 +14,8 @@ CREATE TABLE "employees" (
 
 CREATE TABLE "photos" (
   "id" SERIAL PRIMARY KEY,
-  "path" text NOT NULL
-);
-
-CREATE TABLE "employee_photos" (
-  "employee_id" int,
-  "photo_id" int
+  "path" text NOT NULL,
+  "employee_id", int
 );
 
 CREATE TABLE "company" (
@@ -31,9 +27,8 @@ CREATE TABLE "company" (
   "created_at" timestamp DEFAULT (now())
 );
 
-ALTER TABLE "employees" ADD FOREIGN KEY ("company_id") REFERENCES "company" ("id")
-ALTER TABLE "employee_photos" ADD FOREIGN KEY ("photo_id") REFERENCES "photos" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE "employee_photos" ADD FOREIGN KEY ("employee_id") REFERENCES "employees" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "employees" ADD FOREIGN KEY ("company_id") REFERENCES "company" ("id") ON DELETE CASCADE;
+ALTER TABLE "photos" ADD FOREIGN KEY ("employee_id") REFERENCES "employees" ("id") ON DELETE CASCADE;
 
 --Tabela da sessão de usuário
 CREATE TABLE "session" (
