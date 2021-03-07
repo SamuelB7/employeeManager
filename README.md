@@ -1,4 +1,4 @@
-##EMPLOYEE MANAGER
+#EMPLOYEE MANAGER
 ### Sistema desenvolvido para estudos
 O Employee manager é um sistema para cadastrar os funcionários de uma empresa.
 Ao acessar pela primeira vez, o usuário precisa criar uma conta para a sua empresa,
