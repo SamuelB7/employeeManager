@@ -8,7 +8,7 @@ Após o uso, ele pode fazer logout da conta, e quando precisar é só fazer logi
 Se ele quiser, ele pode deletar a própria conta também.
 O projeto conta também com um sistema de recuperação de senha, caso o usuário perca o acesso a sua conta.
 
-Para contruir esse sistema eu utilizei PostgreSQL, ExpressJs e NodeJs no back-end, e para o front-end eu utilizei Bootstrap e Nunjucks.
+Para contruir esse sistema eu utilizei o padrão MVC, com o PostgreSQL, ExpressJs e NodeJs no back-end, e no front-end eu utilizei Bootstrap e Nunjucks.
 As demais bibliotecas utilizadas estão no *package.json* do projeto.
 
 Sinta se a vontade para me mandar sugestões de melhoria!
